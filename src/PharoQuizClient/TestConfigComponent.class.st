@@ -85,6 +85,12 @@ TestConfigComponent >> topicList [
 ]
 
 { #category : 'accessing' }
+TestConfigComponent >> topicList1: anObject [
+
+	topicList := anObject
+]
+
+{ #category : 'accessing' }
 TestConfigComponent >> topicList: anObject [
 
 	topicList := anObject collect: [ :each |

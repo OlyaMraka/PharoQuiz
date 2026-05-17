@@ -38,6 +38,21 @@ SidebarComponent >> onLogOutClick [
 ]
 
 { #category : 'operations' }
+SidebarComponent >> onTestClick [
+
+	| topicManager topicItems configComp |
+	topicManager := TopicManager new.
+	topicItems := topicManager getAllTopics.
+
+	configComp := TestTopicSelection new.
+
+	configComp topicList: topicItems.
+	configComp root: root.
+
+	root mainContentInfo: configComp
+]
+
+{ #category : 'operations' }
 SidebarComponent >> onTestConfigurationClick [
 
 	| topicManager topicItems configComp |
@@ -94,6 +109,7 @@ SidebarComponent >> renderContentOn: html [
 					with: [
 							html anchor
 								class: 'operation-button';
+								callback: [ self onTestClick ];
 								with: 'Тестові завдання'.
 
 							html anchor
