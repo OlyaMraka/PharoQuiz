@@ -29,7 +29,7 @@ Class {
 TestTaskRepository >> getAllByTopicId: topicId [
 
 	| results |
-	results := self db read: TestTask where: [ :testTask | (testTask topic id = topicId) & (testTask deleted = 0) ].
+	results := self db read: TestTask where: [ :testTask | (testTask topic id = topicId) & (testTask deleted = false) ].
 	^ results
 ]
 

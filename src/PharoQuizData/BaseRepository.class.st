@@ -45,7 +45,7 @@ BaseRepository >> delete: anObject [
 		existing := session readOneOf: anObject class where: [ :each | each id = anObject id ].
 		
 		existing ifNotNil: [ 
-			existing deleted: 1.
+			existing deleted: true.
 			existing deletedAt: DateAndTime now.
 			session register: existing.
 		].
@@ -64,7 +64,7 @@ BaseRepository >> findAll [
 	session := self db.
 	session beginUnitOfWork.
 	[
-		result := session read: self targetClass where: [ :each | each deleted = 0 ].
+		result := session read: self targetClass where: [ :each | each deleted = false ].
 		session commitUnitOfWork.
 		^ result ]
 		on: Error

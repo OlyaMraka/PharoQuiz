@@ -33,7 +33,7 @@ UserRepository >> confirmEmail: aConfirmationStatus userId: anId [
 	s := self db.
 	s beginUnitOfWork.
 	[
-		existing := s readOneOf: User where: [ :user | user id = anId & (user deleted = 0) ].
+		existing := s readOneOf: User where: [ :user | user id = anId & (user deleted = false) ].
 
 		existing emailConfirmed: aConfirmationStatus.
 		
@@ -48,7 +48,7 @@ UserRepository >> confirmEmail: aConfirmationStatus userId: anId [
 UserRepository >> findByEmail: anEmail [
 
 	| results |
-	results := self db read: User where: [ :user | (user email = anEmail) & (user deleted = 0) ].
+	results := self db read: User where: [ :user | (user email = anEmail) & (user deleted = false) ].
 	^ results ifEmpty: [ nil ] ifNotEmpty: [ results first ]
 ]
 
@@ -56,7 +56,7 @@ UserRepository >> findByEmail: anEmail [
 UserRepository >> findByToken: aToken [
 
 	| results |
-	results := self db read: User where: [ :user | user confirmationToken = aToken & (user deleted = 0) ].
+	results := self db read: User where: [ :user | user confirmationToken = aToken & (user deleted = false) ].
 	^ results ifEmpty: [ nil ] ifNotEmpty: [ results first ]
 ]
 
@@ -64,7 +64,7 @@ UserRepository >> findByToken: aToken [
 UserRepository >> findByUsername: aUsername [
 
 	| results |
-	results := self db read: User where: [ :user | (user username = aUsername) & (user deleted = 0) ].
+	results := self db read: User where: [ :user | (user username = aUsername) & (user deleted = false) ].
 	^ results ifEmpty: [ nil ] ifNotEmpty: [ results first ]
 ]
 

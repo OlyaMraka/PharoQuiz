@@ -13,15 +13,28 @@ Class {
 
 { #category : 'accessing' }
 QuizDBManager >> session [
+| login session system accessor |
 
-	(session isNil or: [ session accessor isNil or: [ session accessor isLoggedIn not ] ]) ifTrue: [
-			| login |
-			login := Login new.
-			login database: SQLite3Platform new.
-			login databaseName: (Smalltalk imageDirectory / 'quiz_project.db') fullName.
-			login host: ''.
+login := Login new.
+login database: PostgreSQLPlatform new.
+login host: 'localhost'.
+login port: 5432.
+login databaseName: 'PharoQuiz'.
+login username: 'postgres'.
+login password: '1'.
 
-			session := QuizDescriptorSystem sessionForLogin: login.
-			session login ].
-	^ session
+system := QuizDescriptorSystem new.
+system platform: login database.  "🔥 ВАЖЛИВО"
+
+session := GlorpSession new.
+
+session system: system.
+system session: session.
+
+accessor := DatabaseAccessor forLogin: login.
+session accessor: accessor.
+
+session login.
+
+^ session
 ]

@@ -219,7 +219,7 @@ QuizDescriptorSystem >> descriptorForTopic: aDescriptor [
 QuizDescriptorSystem >> descriptorForUser: aDescriptor [
 
 	| table |
-	table := self tableNamed: 'USER'.
+	table := self tableNamed: 'USER_ACCOUNT'.
 	aDescriptor table: table.
 
 	(aDescriptor newMapping: DirectMapping) from: #id to: (table fieldNamed: 'Id').
@@ -247,7 +247,8 @@ QuizDescriptorSystem >> descriptorForUser: aDescriptor [
 QuizDescriptorSystem >> tableForCODING_TASK: aTable [
 
 	| topicTable fk |
-	(aTable createFieldNamed: 'Id' type: self platform integer) bePrimaryKey.
+	(aTable createFieldNamed: 'Id' type: (self platform serial))
+    bePrimaryKey.
 	aTable createFieldNamed: 'TopicId' type: self platform integer.
 	aTable createFieldNamed: 'TaskText' type: (self platform varchar: 500).
 	aTable createFieldNamed: 'Difficulty' type: self platform integer.
@@ -265,7 +266,8 @@ QuizDescriptorSystem >> tableForCODING_TASK: aTable [
 QuizDescriptorSystem >> tableForTEST_ANSWER: aTable [
 
 	| taskTable fk |
-	(aTable createFieldNamed: 'Id' type: self platform serial) bePrimaryKey.
+	(aTable createFieldNamed: 'Id' type: (self platform serial))
+    bePrimaryKey.
 	aTable createFieldNamed: 'TestTaskId' type: self platform integer.
 	aTable createFieldNamed: 'AnswerText' type: (self platform varchar: 500).
 	aTable createFieldNamed: 'IsCorrect' type: self platform boolean.
@@ -282,7 +284,8 @@ QuizDescriptorSystem >> tableForTEST_ANSWER: aTable [
 QuizDescriptorSystem >> tableForTEST_TASK: aTable [
 
 	| topicTable fk |
-	(aTable createFieldNamed: 'Id' type: self platform serial) bePrimaryKey.
+	(aTable createFieldNamed: 'Id' type: (self platform serial))
+    bePrimaryKey.
 	aTable createFieldNamed: 'TopicId' type: self platform integer.
 	aTable createFieldNamed: 'Question' type: (self platform varchar: 500).
 	aTable createFieldNamed: 'Difficulty' type: self platform integer.
@@ -300,7 +303,8 @@ QuizDescriptorSystem >> tableForTEST_TASK: aTable [
 { #category : 'tables' }
 QuizDescriptorSystem >> tableForTOPIC: aTable [
 
-	(aTable createFieldNamed: 'Id' type: self platform serial) bePrimaryKey.
+	(aTable createFieldNamed: 'Id' type: (self platform serial))
+    bePrimaryKey.
 	aTable createFieldNamed: 'Title' type: (self platform varchar: 50).
 	aTable createFieldNamed: 'Description' type: (self platform varchar: 255).
 	aTable createFieldNamed: 'CreatedOn' type: self platform timestamp.
@@ -309,9 +313,10 @@ QuizDescriptorSystem >> tableForTOPIC: aTable [
 ]
 
 { #category : 'tables' }
-QuizDescriptorSystem >> tableForUSER: aTable [
+QuizDescriptorSystem >> tableForUSER_ACCOUNT: aTable [
 
-	(aTable createFieldNamed: 'Id' type: self platform serial) bePrimaryKey.
+	(aTable createFieldNamed: 'Id' type: (self platform serial))
+    bePrimaryKey.
 	aTable createFieldNamed: 'Email' type: (self platform varchar: 100).
 	aTable createFieldNamed: 'Username' type: (self platform varchar: 50).
 	aTable createFieldNamed: 'PasswordHash' type: (self platform varchar: 255).

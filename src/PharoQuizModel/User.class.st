@@ -101,7 +101,7 @@ User >> id: newId [
 { #category : 'initialization' }
 User >> initialize [
 	super initialize.
-	deleted := 0.
+	deleted := false.
 ]
 
 { #category : 'testing' }
